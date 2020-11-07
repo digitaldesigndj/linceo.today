@@ -42,7 +42,7 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-    "stage": "scp public ec:/var/www/linceo.today"
+    "stage": "scp -r public ec:/var/www/linceo.today"
   },
   "repository": {
     "type": "git",
