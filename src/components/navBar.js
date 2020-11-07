@@ -39,26 +39,26 @@ const CustomNavbar = ({ pageInfo }) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="" activeKey={pageInfo && pageInfo.pageName}>
-                <Link to="/page-2" className="link-no-style">
-                  <Nav.Link as="span" eventKey="page-2">
-                    Page 2
+                <Link to="/gallery" className="link-no-style">
+                  <Nav.Link as="span" eventKey="gallery">
+                    Gallery
                   </Nav.Link>
                 </Link>
               </Nav>
               <NavDropdown title="Pages" id="nav-dropdown">
                 {data.allStrapiPage.edges.map((page, idx) => {
                   return (
-                    <NavDropdown.Item eventKey="4.4" key={idx}>
-                      <Link to={`/${page.node.Slug}`} className="link-no-style">
+                    <NavDropdown.Item eventKey="4.4" key={idx} href={`/${page.node.Slug}`}>
+                      <Nav.Link as="span" eventKey={page.node.Slug}>
                         {page.node.Title}
-                      </Link>
+                        </Nav.Link>
                     </NavDropdown.Item>
                   )
                 })}
-                <NavDropdown.Divider />
+                {/* <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.4">
                   Separated link
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
               </NavDropdown>
               {/* <Nav className="ml-auto">
                 <Form inline onSubmit={e => e.preventDefault()}>

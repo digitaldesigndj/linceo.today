@@ -1,70 +1,43 @@
 import React from "react"
 import { Row, Col, Container, ListGroup } from "react-bootstrap"
-
+import { graphql } from "gatsby";
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => {
+  const sep = new Date(data.strapiGlobal.LinceoBirthday);
+  const today = new Date();
+  const offset = today - sep
+  const diffDay = Math.floor(offset / (1000 * 60 * 60 * 24));
+  const diffWeek = Math.floor(offset / (1000 * 60 * 60 * 24 * 7));
+  const diffYear = Math.floor(offset / (1000 * 60 * 60 * 24 * 365.25));
+  return (
   <Layout pageInfo={{ pageName: "index" }}>
-    <SEO title="Home" keywords={[`gatsby`, `react`, `bootstrap`]} />
-    <Container className="text-center">
+    <SEO title="Home" keywords={["Linceo", "Young"]} />
+    <Container className="">
       <Row>
         <Col>
           <p>
-            This is a Gatsby Starter that I frequently use to get jump started
-            on quick website builds. It includes the following packages:
+            This is a very nice website for Linceo!
           </p>
-        </Col>
-      </Row>
-      <Row className="justify-content-center my-3">
-        <Col md="6">
-          <ListGroup>
-            <ListGroup.Item
-              action
-              href="https://getbootstrap.com"
-              target="_blank"
-            >
-              Bootstrap
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://react-bootstrap.github.io/"
-              target="_blank"
-            >
-              react-bootstrap
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://react-icons.netlify.com"
-              target="_blank"
-            >
-              react-icons
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://www.gatsbyjs.org/packages/gatsby-plugin-sass/"
-              target="_blank"
-            >
-              gatsby-plugin-sass
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>
-            This starter also includes a navbar that sticks to the top of the
-            screen when the user scrolls past it, and a footer that stays at the
-            bottom of the screen.
-          </p>
-          <p>
-            For more documentation on these packages and how they work, please
-            refer to the pages linked in the list above.
-          </p>
+          <ul>
+            <li>Linceo is {diffYear} years old!</li>
+            <li>Linceo is {diffWeek} weeks old!</li>
+            <li>Linceo is {diffDay} days old!</li>
+          </ul>
+          {/* <pre>{JSON.stringify(data, null,2)}</pre> */}
         </Col>
       </Row>
     </Container>
   </Layout>
-)
+)}
 
 export default IndexPage
+
+export const query = graphql`
+  query {
+    strapiGlobal {
+      id
+      LinceoBirthday
+    }
+  }`;
