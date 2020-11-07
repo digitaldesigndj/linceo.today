@@ -46,9 +46,7 @@ const Layout = ({ children, pageInfo }) => (
             <Col className="footer-col">
               <footer>
                 <p>
-                  <small>
-                    © {new Date().getFullYear()}, Built by Taylor
-                  </small>
+                  <small>© {new Date().getFullYear()}, Built by Taylor</small>
                 </p>
               </footer>
             </Col>

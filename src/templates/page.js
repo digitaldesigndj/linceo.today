@@ -3,7 +3,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from "react-markdown"
 
 export default function Home({ data }) {
   const page = data.strapiPage

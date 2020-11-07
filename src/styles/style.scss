@@ -3,24 +3,5 @@
 
 @import "layout";
 @import "navbar";
+@import "gallery";
 
-// .gallery img {
-//     max-width: 100%
-// }
-
-//  {
-//     width: 320px !important;
-// }
-
-.grid-sizer, .grid-item { width: 33.333%; }
-
-@media screen and (min-width: 768px) {
-  /* 5 columns for larger screens */
-  
-}
-
-@include media-breakpoint-up(xs) { .grid-sizer, .grid-item { width: 50%; } .grid-item--width2 { width: 100% } }
-@include media-breakpoint-up(sm) { .grid-sizer, .grid-item { width: 33.333%; } .grid-item--width2 { width: 66.666% } }
-@include media-breakpoint-up(md) { .grid-sizer, .grid-item { width: 25%; } .grid-item--width2 { width: 50% } }
-@include media-breakpoint-up(lg) { .grid-sizer, .grid-item { width: 20%; } .grid-item--width2 { width: 40% } }
-// @include media-breakpoint-up(xl) { .grid-sizer, .grid-item { width: 12.5%; } .grid-item--width2 { width: 25% } }
