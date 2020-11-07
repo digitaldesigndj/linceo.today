@@ -6,7 +6,43 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Image from "gatsby-image"
 
-const SecondPage = ({ data }) => {
+import Masonry from 'react-masonry-component';
+
+const masonryOptions = {
+    // transitionDuration: 0,
+    columnWidth: 180,
+    // horizontalOrder: true,
+    itemSelector: '.grid-item'
+};
+
+// const imagesLoadedOptions = { background: '.my-bg-image-el' }
+
+class Gallery extends React.Component {
+    render() {
+        const childElements = this.props.data.map(function(image, idx){
+          console.log( image.node.childImageSharp.sizes.aspectRatio )
+          const imageNumber = parseInt(image.node.name.replace('Linceo-Select-',''))
+          if( image.node.childImageSharp.sizes.aspectRatio > 1 || [12,45,10,38,18,35,53].includes(imageNumber) ) {
+            return ( <Image className="grid-item grid-item--width2" key={idx} fixed={image.node.childImageSharp.double} />);
+          }
+          return ( <Image className="grid-item" key={idx} fixed={image.node.childImageSharp.single} />);
+        });
+        return (
+            <Masonry
+                className={'my-gallery-class'} // default ''
+                elementType={'div'} // default 'div'
+                options={masonryOptions} // default {}
+                disableImagesLoaded={true} // default false
+                updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                // imagesLoadedOptions={imagesLoadedOptions} // default {}
+            >
+                {childElements}
+            </Masonry>
+        );
+    }
+}
+
+const GalleryPage = ({ data }) => {
   const images = data.allFile.edges.sort( (a, b) => {
     return parseInt(a.node.name.replace('Linceo-Select-','')) - parseInt(b.node.name.replace('Linceo-Select-',''))
   })
@@ -14,20 +50,21 @@ const SecondPage = ({ data }) => {
   <Layout pageInfo={{ pageName: "Gallery", slug: "gallery" }}>
     <SEO title="Gallery" />
     <h1>Gallery</h1>
-    <Row className="gallery" noGutters>
-    {images.map( (image, idx) => {
-      return (<Col xs={6} sm ={4} md={3} lg={2}>
-        <Image fluid={image.node.childImageSharp.fluid} />
-        {/* <img src={`/LinceoSelect/${image.node.name}${image.node.ext}`} alt="" /> */}
-        </Col>)
-    })}
-    </Row>
+    
+      <Gallery data={images} />
+      {/* {images.map( (image, idx) => {
+        // if( image.node.childImageSharp.sizes.aspectRatio >= 1 ) {
+        //   return (<Col xs={12} sm={8} md={6} lg={4}><Image fluid={image.node.childImageSharp.fluid} /></Col>)
+        // }
+        return (<Col className='grid-item'><Image fluid={image.node.childImageSharp.fluid} /></Col>)
+      })} */}
+    <Row className="gallery" noGutters></Row>
     {/* <pre>{JSON.stringify(data,null,2)}</pre> */}
     <Link to="/">Go back to the homepage</Link>
   </Layout>
 )}
 
-export default SecondPage
+export default GalleryPage
 
 export const query = graphql`
   query {
@@ -37,8 +74,14 @@ export const query = graphql`
           name
           ext
           childImageSharp {
-            fluid(maxWidth: 180, quality: 100) {
-              ...GatsbyImageSharpFluid
+            single: fixed(width: 180, quality: 100) {
+              ...GatsbyImageSharpFixed
+            }
+            double: fixed(width: 360, quality: 100) {
+              ...GatsbyImageSharpFixed
+            }
+            sizes {
+              aspectRatio
             }
           }
         }

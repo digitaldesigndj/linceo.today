@@ -4,6 +4,10 @@
 @import "layout";
 @import "navbar";
 
-.gallery img {
-    max-width: 100%
+// .gallery img {
+//     max-width: 100%
+// }
+
+.grid-item--width2 {
+    width: 360px !important;
 }

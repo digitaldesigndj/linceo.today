@@ -16,15 +16,19 @@
     "gatsby-source-filesystem": "^2.4.2",
     "gatsby-source-strapi": "^0.0.12",
     "gatsby-transformer-sharp": "^2.5.21",
+    "install": "^0.13.0",
     "luxon": "^1.25.0",
+    "masonry-layout": "^4.2.2",
     "node-sass": "^4.12.0",
+    "npm": "^6.14.8",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.6.1",
-    "react-markdown": "^5.0.2"
+    "react-markdown": "^5.0.2",
+    "react-masonry-component": "^6.2.1"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",
