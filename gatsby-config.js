@@ -8,6 +8,13 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `gallery`,
+        path: `${__dirname}/src/images/LinceoSelect`,
+      },
+    },
+    {
       resolve: "gatsby-source-strapi",
       options: {
         apiURL: "https://admin.linceo.today",
