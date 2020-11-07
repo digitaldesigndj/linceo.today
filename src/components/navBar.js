@@ -34,7 +34,7 @@ const CustomNavbar = ({ pageInfo }) => {
           <Navbar variant="dark" expand="lg" id="site-navbar">
             <Container>
               <Link to="/" className="link-no-style">
-                <Navbar.Brand as="span">Gatsby React Bootstrap</Navbar.Brand>
+                <Navbar.Brand as="span">Linceo Today ☀️</Navbar.Brand>
               </Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">

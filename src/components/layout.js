@@ -47,9 +47,7 @@ const Layout = ({ children, pageInfo }) => (
               <footer>
                 <p>
                   <small>
-                    © {new Date().getFullYear()}, Built with
-                    {` `}
-                    <a href="https://www.gatsbyjs.org">Gatsby</a>
+                    © {new Date().getFullYear()}, Built by Taylor
                   </small>
                 </p>
               </footer>
