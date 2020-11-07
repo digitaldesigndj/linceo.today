@@ -1,26 +1,26 @@
 import React from "react"
-import { graphql } from 'gatsby'
+// import { Row, Col, Container } from "react-bootstrap"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import SEO from "../components/seo"
 
-export default function Home({data}) {
-  console.log( data )
-  // const { page } = data.edges[0].node
-  return <div>This is templated page woo!
-    {/* <h1>{page.Title}</h1> */}
-    <pre>{JSON.stringify(data, null, 2)}</pre>
-  </div>
+export default function Home({ data }) {
+  const page = data.strapiPage
+  return (
+    <Layout pageInfo={{ pageName: "index" }}>
+      <SEO title="Home" keywords={[`gatsby`, `react`, `bootstrap`]} />
+      <h1>{page.Title}</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </Layout>
+  )
 }
 
-
 export const query = graphql`
-  query {
-    allStrapiPage {
-      edges {
-        node {
-          id
-          Slug
-          Title
-        }
-      }
+  query($Slug: String!) {
+    strapiPage(Slug: { eq: $Slug }) {
+      id
+      Slug
+      Title
     }
   }
-`;
+`
