@@ -3,6 +3,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import ReactMarkdown from 'react-markdown'
 
 export default function Home({ data }) {
   const page = data.strapiPage
@@ -10,7 +11,8 @@ export default function Home({ data }) {
     <Layout pageInfo={{ pageName: "index" }}>
       <SEO title="Home" keywords={[`gatsby`, `react`, `bootstrap`]} />
       <h1>{page.Title}</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <ReactMarkdown>{page.Markdown}</ReactMarkdown>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </Layout>
   )
 }
@@ -21,6 +23,7 @@ export const query = graphql`
       id
       Slug
       Title
+      Markdown
     }
   }
 `
