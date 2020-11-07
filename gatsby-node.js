@@ -38,3 +38,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
   })
 }
+
+
+// pm2 start npm --name "admin.linceo.today-develop" -- run develop
