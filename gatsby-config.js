@@ -13,7 +13,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `gallery`,
-        path: `${__dirname}/public/LinceoSelect`,
+        path: `${__dirname}/src/images/LinceoSelect`,
       },
     },
     {
