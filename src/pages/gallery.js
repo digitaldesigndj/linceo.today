@@ -9,9 +9,9 @@ import Image from "gatsby-image"
 import Masonry from 'react-masonry-component';
 
 const masonryOptions = {
-    // transitionDuration: 0,
-    columnWidth: 180,
+    transitionDuration: 0,
     // horizontalOrder: true,
+    columnWidth: '.grid-sizer',
     itemSelector: '.grid-item'
 };
 
@@ -22,21 +22,22 @@ class Gallery extends React.Component {
         const childElements = this.props.data.map(function(image, idx){
           console.log( image.node.childImageSharp.sizes.aspectRatio )
           const imageNumber = parseInt(image.node.name.replace('Linceo-Select-',''))
-          if( image.node.childImageSharp.sizes.aspectRatio > 1 || [12,45,10,38,18,35,53].includes(imageNumber) ) {
-            return ( <Image className="grid-item grid-item--width2" key={idx} fixed={image.node.childImageSharp.double} />);
+          if( image.node.childImageSharp.sizes.aspectRatio > 1 || [10,12,18,26,35,38,41,45,48,53].includes(imageNumber) ) {
+            return ( <Image className="grid-item grid-item--width2" key={idx} fluid={image.node.childImageSharp.double} />);
           }
-          return ( <Image className="grid-item" key={idx} fixed={image.node.childImageSharp.single} />);
+          return ( <Image className="grid-item" key={idx} fluid={image.node.childImageSharp.single} />);
         });
         return (
             <Masonry
-                className={'my-gallery-class'} // default ''
+                className={''} // default ''
                 elementType={'div'} // default 'div'
-                options={masonryOptions} // default {}
+                options={masonryOptions}
                 disableImagesLoaded={true} // default false
-                updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                // updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
                 // imagesLoadedOptions={imagesLoadedOptions} // default {}
             >
-                {childElements}
+              <div className="grid-sizer" />
+              {childElements}
             </Masonry>
         );
     }
@@ -50,15 +51,7 @@ const GalleryPage = ({ data }) => {
   <Layout pageInfo={{ pageName: "Gallery", slug: "gallery" }}>
     <SEO title="Gallery" />
     <h1>Gallery</h1>
-    
-      <Gallery data={images} />
-      {/* {images.map( (image, idx) => {
-        // if( image.node.childImageSharp.sizes.aspectRatio >= 1 ) {
-        //   return (<Col xs={12} sm={8} md={6} lg={4}><Image fluid={image.node.childImageSharp.fluid} /></Col>)
-        // }
-        return (<Col className='grid-item'><Image fluid={image.node.childImageSharp.fluid} /></Col>)
-      })} */}
-    <Row className="gallery" noGutters></Row>
+    <Gallery data={images} />
     {/* <pre>{JSON.stringify(data,null,2)}</pre> */}
     <Link to="/">Go back to the homepage</Link>
   </Layout>
@@ -74,11 +67,11 @@ export const query = graphql`
           name
           ext
           childImageSharp {
-            single: fixed(width: 180, quality: 100) {
-              ...GatsbyImageSharpFixed
+            single: fluid(maxWidth: 200, quality: 95) {
+              ...GatsbyImageSharpFluid
             }
-            double: fixed(width: 360, quality: 100) {
-              ...GatsbyImageSharpFixed
+            double: fluid(maxWidth: 400, quality: 95) {
+              ...GatsbyImageSharpFluid
             }
             sizes {
               aspectRatio
