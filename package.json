@@ -9,7 +9,7 @@
     "gatsby": "^2.25.3",
     "gatsby-image": "^2.0.41",
     "gatsby-plugin-manifest": "^2.0.29",
-    "gatsby-plugin-offline": "^2.0.25",
+    "gatsby-plugin-offline": "^3.3.2",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-sass": "^2.0.11",
     "gatsby-plugin-sharp": "^2.7.1",
@@ -46,7 +46,7 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-    "stage": "scp -r public ec:/var/www/linceo.today"
+    "stage": "rsync -rv public ec:/var/www/linceo.today"
   },
   "repository": {
     "type": "git",

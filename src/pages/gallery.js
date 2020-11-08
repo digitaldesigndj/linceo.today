@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
 import { graphql } from "gatsby"
-import { Row, Col } from "react-bootstrap"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Image from "gatsby-image"
@@ -15,8 +14,6 @@ const masonryOptions = {
   itemSelector: ".grid-item",
 }
 
-// const imagesLoadedOptions = { background: '.my-bg-image-el' }
-
 class Gallery extends React.Component {
   render() {
     const childElements = this.props.data.map(function(image, idx) {
@@ -25,6 +22,8 @@ class Gallery extends React.Component {
         image.node.name.replace("Linceo-Select-", "")
       )
       if (image.node.childImageSharp.sizes.aspectRatio > 1) {
+        // Landscape Images, doesn't mix with showcase
+        // gets 2 cells wide with custom reduced height (matches 1 cell).
         return (
           <Image
             className="grid-item grid-item--landscape"
@@ -33,6 +32,7 @@ class Gallery extends React.Component {
           />
         )
       } else if (
+        // Showcase Image ID's (Double Size)
         [10, 12, 18, 26, 35, 38, 41, 45, 48, 53].includes(imageNumber)
       ) {
         return (
@@ -43,6 +43,7 @@ class Gallery extends React.Component {
           />
         )
       }
+      // Regular Portraits
       return (
         <Image
           className="grid-item"
@@ -52,14 +53,7 @@ class Gallery extends React.Component {
       )
     })
     return (
-      <Masonry
-        className={""} // default ''
-        elementType={"div"} // default 'div'
-        options={masonryOptions}
-        disableImagesLoaded={true} // default false
-        // updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-        // imagesLoadedOptions={imagesLoadedOptions} // default {}
-      >
+      <Masonry options={masonryOptions} disableImagesLoaded={true}>
         <div className="grid-sizer" />
         {childElements}
       </Masonry>
