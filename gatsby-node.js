@@ -20,6 +20,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return
   }
 
+  // exports.onPreInit = () => {
+  //   console.log('Gatsby-source-strapi-fix...')
+  // }
+
   // result.data.strapiPages.edges.forEach(({ node }) => {
   //   const TemplateName = node.Template;
   //   console.log( TemplateName, 'TemplateName')

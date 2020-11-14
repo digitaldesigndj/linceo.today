@@ -46,7 +46,12 @@ const Layout = ({ children, pageInfo }) => (
             <Col className="footer-col">
               <footer>
                 <p>
-                  <small>© {new Date().getFullYear()}, Built by Taylor</small>
+                  <small>
+                    © {new Date().getFullYear()}, Developed by Taylor{" "}
+                    <a href="https://github.com/digitaldesigndj/linceo.today">
+                      source code
+                    </a>
+                  </small>
                 </p>
               </footer>
             </Col>
