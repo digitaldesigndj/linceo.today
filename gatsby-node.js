@@ -1,5 +1,16 @@
 const path = require(`path`)
 
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions
+  // page.matchPath is a special key that's used for matching pages
+  // only on the client.
+  if (page.path.match(/^\/members/)) {
+    page.matchPath = "/members/*"
+    // Update the page.
+    createPage(page)
+  }
+}
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
   const result = await graphql(`
@@ -42,6 +53,5 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
   })
 }
-
 
 // pm2 start npm --name "admin.linceo.today-develop" -- run develop

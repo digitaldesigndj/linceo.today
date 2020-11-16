@@ -1,8 +1,8 @@
 import React from "react"
 import { Row, Col, Container, ListGroup } from "react-bootstrap"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "src/components/layout"
+import SEO from "src/components/seo"
 
 const IndexPage = ({ data }) => {
   const sep = new Date(data.strapiGlobal.LinceoBirthday)
@@ -36,7 +36,7 @@ export default IndexPage
 export const query = graphql`
   query {
     strapiGlobal {
-      id
+      # id
       LinceoBirthday
     }
   }

@@ -1,5 +1,6 @@
 import React from "react"
 import { StaticQuery, Link } from "gatsby"
+import useLocalStorage from "src/hooks/useLocalStorage"
 
 import {
   Navbar,
@@ -12,6 +13,7 @@ import {
 } from "react-bootstrap"
 
 const CustomNavbar = ({ pageInfo }) => {
+  const [session, setSession] = useLocalStorage("session", false)
   console.log(pageInfo)
   return (
     <StaticQuery
@@ -44,6 +46,11 @@ const CustomNavbar = ({ pageInfo }) => {
                       Gallery
                     </Nav.Link>
                   </Link>
+                  {/* <Link to="/login" className="link-no-style">
+                    <Nav.Link as="span" eventKey="connect">
+                      Connect
+                    </Nav.Link>
+                  </Link> */}
                 </Nav>
                 <NavDropdown title="Pages" id="nav-dropdown">
                   {data.allStrapiPage.edges.map((page, idx) => {
@@ -59,23 +66,23 @@ const CustomNavbar = ({ pageInfo }) => {
                       </NavDropdown.Item>
                     )
                   })}
+                  <NavDropdown.Divider />
+                  {/* <p> a thing</p> */}
                   {/* <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.4">
                   Separated link
                 </NavDropdown.Item> */}
                 </NavDropdown>
-                {/* <Nav className="ml-auto">
-                <Form inline onSubmit={e => e.preventDefault()}>
-                  <Form.Group>
-                    <FormControl
-                      type="text"
-                      placeholder="Fake Search"
-                      className="mr-2"
-                    />
-                  </Form.Group>
-                  <Button>Fake Button</Button>
-                </Form>
-              </Nav> */}
+                <Navbar.Collapse className="justify-content-end">
+                  <Navbar.Text>
+                    Signed in as:{" "}
+                    {session ? (
+                      <a href="/members/profile">{session.user.username}</a>
+                    ) : (
+                      <a href="/login">nobody</a>
+                    )}
+                  </Navbar.Text>
+                </Navbar.Collapse>
               </Navbar.Collapse>
             </Container>
           </Navbar>
