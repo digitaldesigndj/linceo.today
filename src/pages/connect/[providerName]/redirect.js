@@ -9,7 +9,6 @@ import useLocalStorage from "src/hooks/useLocalStorage"
 const Redirect = ({ providerName }) => {
   const location = useLocation()
   const navigate = useNavigate()
-  const [session, setSession] = useLocalStorage("session", false)
   const [text, setText] = useState("Loading...")
   const backendURL = process.env.GATSBY_APP_BACKEND_URL
   const loginURL = `${backendURL}/auth/${providerName}/callback${location.search}`
@@ -25,18 +24,19 @@ const Redirect = ({ providerName }) => {
       })
       .then(res => res.json())
       .then(res => {
-        setSession(res)
+        console.log(res)
+        window.localStorage.setItem("token", res.jwt)
+        window.localStorage.setItem("user", JSON.stringify(res.user))
         setText(
-          `Hi ${session.user.username} You have been successfully logged in. You will be redirected in a few seconds...`
+          `Hi ${res.user.username} You have been successfully logged in. You will be redirected in a few seconds...`
         )
-        setTimeout(() => navigate("/members/profile", { replace: true }), 500) // Redirect
+        // setTimeout(() => navigate("/members/profile", { replace: true }), 500) // Redirect
       })
       .catch(err => {
         console.log(err)
         setText("An error occurred, please see the developer console.")
       })
-  }, [providerName, location])
-
+  }, [providerName, location.search])
   return (
     <Layout pageInfo={{ pageName: "index" }}>
       <SEO title="OAuth2 " keywords={["Linceo", "Young"]} />
@@ -45,7 +45,9 @@ const Redirect = ({ providerName }) => {
           <Col>
             <p>{text}</p>
             {/* <p>{backendURL}</p> */}
-            {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
+            {/* <pre>
+              {JSON.stringify(session, null, 2)}
+            </pre> */}
             {/* <pre>{JSON.stringify(location, null, 2)}</pre> */}
           </Col>
         </Row>
