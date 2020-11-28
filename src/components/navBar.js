@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useContext } from "react"
 import { StaticQuery, Link } from "gatsby"
-import useLocalStorage from "src/hooks/useLocalStorage"
-// import { storageAvailable } from "src/util"
+import { store } from "src/store"
+import { useMachine } from "@xstate/react"
 
 import {
   Navbar,
@@ -13,46 +13,9 @@ import {
   Container,
 } from "react-bootstrap"
 
-function storageAvailable(type) {
-  var storage
-  try {
-    storage = window[type]
-    var x = "__storage_test__"
-    storage.setItem(x, x)
-    storage.removeItem(x)
-    return true
-  } catch (e) {
-    return (
-      e instanceof DOMException &&
-      // everything except Firefox
-      (e.code === 22 ||
-        // Firefox
-        e.code === 1014 ||
-        // test name field too, because code might not be present
-        // everything except Firefox
-        e.name === "QuotaExceededError" ||
-        // Firefox
-        e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
-      // acknowledge QuotaExceededError only if there's something already stored
-      storage &&
-      storage.length !== 0
-    )
-  }
-}
-
 const CustomNavbar = ({ pageInfo }) => {
-  let userData = {}
-  const [user, setUser] = useLocalStorage("user", false)
-  // useEffect(() => {
-  //   if (storageAvailable("localStorage")) {
-  //     console.log(JSON.parse(window.localStorage.getItem("user")))
-  //     userData = JSON.parse(window.localStorage.getItem("user"))
-  //     setUser(userData)
-  //   } else {
-  //     // 'You need localStorage support to login'
-  //   }
-  // }, [userData])
-  // console.log(pageInfo)
+  const sessionMachine = useContext(store)
+  const { state, send } = sessionMachine
   return (
     <StaticQuery
       query={graphql`
@@ -70,8 +33,13 @@ const CustomNavbar = ({ pageInfo }) => {
       `}
       render={data => (
         <>
-          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-          <Navbar variant="dark" expand="lg" id="site-navbar">
+          {/* <pre>{JSON.stringify(state.context, null, 2)}</pre> */}
+          <Navbar
+            className="fixed-bottom"
+            variant="dark"
+            expand="lg"
+            id="site-navbar"
+          >
             <Container>
               <Link to="/" className="link-no-style">
                 <Navbar.Brand as="span">Linceo Today ☀️</Navbar.Brand>
@@ -84,13 +52,8 @@ const CustomNavbar = ({ pageInfo }) => {
                       Gallery
                     </Nav.Link>
                   </Link>
-                  {/* <Link to="/login" className="link-no-style">
-                    <Nav.Link as="span" eventKey="connect">
-                      Connect
-                    </Nav.Link>
-                  </Link> */}
                 </Nav>
-                <NavDropdown title="Pages" id="nav-dropdown">
+                <NavDropdown title="Pages" id="nav-dropdown" className="dropup">
                   {data.allStrapiPage.edges.map((page, idx) => {
                     return (
                       <NavDropdown.Item
@@ -105,19 +68,13 @@ const CustomNavbar = ({ pageInfo }) => {
                     )
                   })}
                   <NavDropdown.Divider />
-                  {/* <p> a thing</p> */}
-                  {/* <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4">
-                  Separated link
-                </NavDropdown.Item> */}
                 </NavDropdown>
                 <Navbar.Collapse className="justify-content-end">
                   <Navbar.Text>
-                    Signed in as:{" "}
-                    {user !== {} ? (
-                      <a href="/members/profile">{user.username}</a>
+                    {state.value !== "active" ? (
+                      <a href="/login">Sign in here</a>
                     ) : (
-                      <a href="/login">nobody</a>
+                      <p>Hello: {state.context.user.username}</p>
                     )}
                   </Navbar.Text>
                 </Navbar.Collapse>
