@@ -5,9 +5,9 @@ import { navigate } from "gatsby"
 import useIsClient from "src/hooks/use-is-client"
 
 const Logout = () => {
-  const { isClient, key } = useIsClient()
+  const { isClient } = useIsClient()
   const sessionMachine = useContext(store)
-  const { state, send } = sessionMachine
+  const { send } = sessionMachine
   if (isClient) {
     window.localStorage.clear()
     send("LOGOUT")

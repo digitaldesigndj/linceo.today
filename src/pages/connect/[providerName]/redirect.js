@@ -8,7 +8,7 @@ const GATSBY_APP_BACKEND_URL =
   process.env.GATSBY_APP_BACKEND_URL || "http://localhost:1337"
 
 const Redirect = ({ providerName }) => {
-  const { isClient, key } = useIsClient()
+  const { isClient } = useIsClient()
   const sessionMachine = useContext(store)
   let { state, send } = sessionMachine
   console.log(sessionMachine, "sessionMachine")

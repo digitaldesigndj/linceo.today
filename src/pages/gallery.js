@@ -17,7 +17,7 @@ const masonryOptions = {
 class Gallery extends React.Component {
   render() {
     const childElements = this.props.data.map(function(image, idx) {
-      console.log(image.node.childImageSharp.sizes.aspectRatio)
+      // console.log(image.node.childImageSharp.sizes.aspectRatio)
       const imageNumber = parseInt(
         image.node.name.replace("Linceo-Select-", "")
       )

@@ -1,5 +1,5 @@
 import React from "react"
-import { Row, Col, Container, ListGroup } from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import { graphql } from "gatsby"
 import Layout from "src/components/layout"
 import SEO from "src/components/seo"

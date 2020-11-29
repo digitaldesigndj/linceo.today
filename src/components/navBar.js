@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import { StaticQuery, Link } from "gatsby"
+import { StaticQuery, Link, graphql } from "gatsby"
 import { store } from "src/store"
-import { useMachine } from "@xstate/react"
+// import { useMachine } from "@xstate/react"
 
 import {
   Navbar,
@@ -15,7 +15,7 @@ import {
 
 const CustomNavbar = ({ pageInfo }) => {
   const sessionMachine = useContext(store)
-  const { state, send } = sessionMachine
+  const { state } = sessionMachine
   return (
     <StaticQuery
       query={graphql`
@@ -52,6 +52,11 @@ const CustomNavbar = ({ pageInfo }) => {
                       Gallery
                     </Nav.Link>
                   </Link>
+                  <Link to="/live-gallery" className="link-no-style">
+                    <Nav.Link as="span" eventKey="gallery">
+                      Live Gallery
+                    </Nav.Link>
+                  </Link>
                 </Nav>
                 <NavDropdown title="Pages" id="nav-dropdown" className="dropup">
                   {data.allStrapiPage.edges.map((page, idx) => {
@@ -69,7 +74,7 @@ const CustomNavbar = ({ pageInfo }) => {
                   })}
                   <NavDropdown.Divider />
                 </NavDropdown>
-                <Navbar.Collapse className="justify-content-end">
+                {/* <Navbar.Collapse className="justify-content-end">
                   <Navbar.Text>
                     {state.value !== "active" ? (
                       <a href="/login">Sign in here</a>
@@ -77,7 +82,7 @@ const CustomNavbar = ({ pageInfo }) => {
                       <p>Hello: {state.context.user.username}</p>
                     )}
                   </Navbar.Text>
-                </Navbar.Collapse>
+                </Navbar.Collapse> */}
               </Navbar.Collapse>
             </Container>
           </Navbar>
