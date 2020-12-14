@@ -1,6 +1,10 @@
 kind: pipeline
 name: default
 
+trigger:
+  event:
+    exclude: [promote]
+
 steps:
   - name: restore-cache
     image: drillster/drone-volume-cache
