@@ -32,6 +32,7 @@ steps:
       GATSBY_EXPERIMENTAL_ROUTING_APIS:
         from_secret: GATSBY_EXPERIMENTAL_ROUTING_APIS
   - name: deploy
+    image: alpine
     volumes:
       - name: nginx
         path: ./nginx
