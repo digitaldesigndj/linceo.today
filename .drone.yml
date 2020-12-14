@@ -46,8 +46,8 @@ steps:
     commands:
       - rm -r nginx/public; mv nginx/stage nginx/public
     when:
-      event:
-        - promote
+      branch:
+        - main
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
