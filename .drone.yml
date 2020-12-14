@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: build
-    image: fermium-alpine3.12
+    image: node
     commands:
       - yarn
       - yarn build
