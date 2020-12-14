@@ -38,11 +38,6 @@ steps:
         path: /drone/src/nginx
     commands:
       - ls nginx
-    when:
-      event:
-        - promote
-      target:
-        - production
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
