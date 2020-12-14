@@ -1,0 +1,9 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build
+    image: fermium-alpine3.12
+    commands:
+      - yarn
+      - yarn build
