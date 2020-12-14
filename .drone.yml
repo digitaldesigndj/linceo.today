@@ -31,14 +31,23 @@ steps:
         from_secret: GATSBY_APP_BACKEND_URL
       GATSBY_EXPERIMENTAL_ROUTING_APIS:
         from_secret: GATSBY_EXPERIMENTAL_ROUTING_APIS
+  - name: stage
+    image: alpine
+    volumes:
+      - name: nginx
+        path: /drone/src/nginx
+    commands:
+      - cp -r public nginx/stage
   - name: deploy
     image: alpine
     volumes:
       - name: nginx
         path: /drone/src/nginx
     commands:
-      - ls
-      - ls nginx
+      - rm -r nginx/public; mv nginx/stage nginx/public
+    when:
+      event:
+        - promote
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
