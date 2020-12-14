@@ -21,7 +21,7 @@ steps:
       - name: cache
         path: /drone/src/node_modules
       - name: nginx
-        path: ./nginx
+        path: /drone/src/nginx
     commands:
       - yarn
       - yarn clean
@@ -35,7 +35,7 @@ steps:
     image: alpine
     volumes:
       - name: nginx
-        path: ./nginx
+        path: /drone/src/nginx
     commands:
       - ls nginx
     when:
