@@ -20,8 +20,11 @@ steps:
     volumes:
       - name: cache
         path: /drone/src/node_modules
+      - name: nginx
+        path: ./nginx
     commands:
       - yarn
+      - yarn clean
       - yarn build
     environment:
       GATSBY_APP_BACKEND_URL:
@@ -31,9 +34,9 @@ steps:
   - name: deploy
     volumes:
       - name: nginx
-        path: ./production
+        path: ./nginx
     commands:
-      - ls
+      - ls nginx
     when:
       event:
         - promote
