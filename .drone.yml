@@ -7,3 +7,8 @@ steps:
     commands:
       - yarn
       - yarn build
+    environment:
+      GATSBY_APP_BACKEND_URL:
+        from_secret: GATSBY_APP_BACKEND_URL
+      GATSBY_EXPERIMENTAL_ROUTING_APIS:
+        from_secret: GATSBY_EXPERIMENTAL_ROUTING_APIS
