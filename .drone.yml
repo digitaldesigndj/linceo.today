@@ -28,6 +28,17 @@ steps:
         from_secret: GATSBY_APP_BACKEND_URL
       GATSBY_EXPERIMENTAL_ROUTING_APIS:
         from_secret: GATSBY_EXPERIMENTAL_ROUTING_APIS
+  - name: deploy
+    volumes:
+      - name: nginx
+        path: ./production
+    commands:
+      - ls
+    when:
+      event:
+        - promote
+      target:
+        - production
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
@@ -42,3 +53,6 @@ volumes:
   - name: cache
     host:
       path: /tmp/cache/linceo.today
+  - name: nginx
+    host:
+      path: /var/www/linceo.today
