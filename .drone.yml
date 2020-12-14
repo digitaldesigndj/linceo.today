@@ -2,8 +2,20 @@ kind: pipeline
 name: default
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - ./node_modules
   - name: build
     image: node
+    volumes:
+      - name: cache
+        path: /drone/src/node_modules
     commands:
       - yarn
       - yarn build
@@ -12,3 +24,17 @@ steps:
         from_secret: GATSBY_APP_BACKEND_URL
       GATSBY_EXPERIMENTAL_ROUTING_APIS:
         from_secret: GATSBY_EXPERIMENTAL_ROUTING_APIS
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - ./node_modules
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache/linceo.today
