@@ -37,6 +37,7 @@ steps:
       - name: nginx
         path: /drone/src/nginx
     commands:
+      - ls
       - ls nginx
   - name: rebuild-cache
     image: drillster/drone-volume-cache
