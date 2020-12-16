@@ -10,6 +10,7 @@ steps:
     image: drillster/drone-volume-cache
     volumes:
       - name: cache
+        path: /cache
     settings:
       restore: true
       mount:
@@ -18,7 +19,7 @@ steps:
     image: node
     volumes:
       - name: cache
-        path: /drone/src/node_modules
+        path: /cache
       - name: nginx
         path: /drone/src/nginx
     commands:
@@ -51,6 +52,7 @@ steps:
     image: drillster/drone-volume-cache
     volumes:
       - name: cache
+        path: /cache
     settings:
       rebuild: true
       mount:
